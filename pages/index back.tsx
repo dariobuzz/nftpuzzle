@@ -4,8 +4,7 @@ import { useRouter } from 'next/router';
 import { ethers } from 'ethers';
 import axios from 'axios';
 import DefaultLayout from '@/layouts/default';
-import { Button} from '@nextui-org/react';
-
+import { Button } from '@nextui-org/react';
 import { BigNumber } from "ethers";
 import { Card, CardHeader, CardBody, CardFooter, Image } from "@nextui-org/react";
 import NFTCollectionABI from '../engine/NFTCollection.json';
@@ -27,7 +26,6 @@ interface LotDetail {
   isRevealed: boolean;
   hasJolly: boolean;
   isSold: boolean;
-  owner?: string; // Nuovo campo per salvare l'indirizzo del possessore del lotto
 }
 
 interface IAttribute {
@@ -44,7 +42,6 @@ interface INFT {
   attributes: IAttribute[];  // Nuovo campo per gli attributi
   width?: number;
   height?: number;
-  userPieces: boolean[]; // Nuovo campo: array dei pezzi posseduti dall'utente
 }
 
 const IndexPage = () => {
@@ -67,6 +64,12 @@ const IndexPage = () => {
   const [jollyCount, setJollyCount] = useState<number>(0);  // Nuovo stato per jollyCount
   
 
+/*
+  useEffect(() => {
+    connectUser();
+  }, []); // Esegue la connessione una sola volta al montaggio del componente
+  */
+
   
   useEffect(() => {
     const savedUser = localStorage.getItem("userAddress");
@@ -87,21 +90,9 @@ const IndexPage = () => {
       getPuzTokenBalance(user);
     }
   }, [user]); // Esegue il recupero degli NFT quando 'user' è stato impostato
-/*
-  useEffect(() => {
-    // Se l'utente è connesso, esegui periodicamente il refresh dei dati ogni 2 secondi
-    const interval = setInterval(() => {
-      if (user) {
-        getWalletNFTs();
-        getClaimableNFTs();
-        getPuzTokenBalance(user);
-      }
-    }, 2000);
+
+ 
   
-    return () => clearInterval(interval); // Pulisci l'intervallo al dismount del componente
-  }, [user]);
-  
-  */
   const getPuzTokenBalance = async (userAddress: string) => {
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum as any);
@@ -208,7 +199,6 @@ const IndexPage = () => {
       isRevealed: lot.isRevealed,
       hasJolly: lot.hasJolly,
       isSold: lot.isSold,
-      owner: lot.owner, // Estendi con l'indirizzo del proprietario
     }));
     console.log("formattedLots:---->>>> ", formattedLots);
     setLotDetails(formattedLots);
@@ -276,125 +266,104 @@ const IndexPage = () => {
       return user;
     }
     }
+
+  async function getWalletNFTs() {
+    if (!user) return; // Assicurati che l'utente sia connesso
+  
+    const provider = new ethers.providers.JsonRpcProvider(testnet);
+    const key = simpleCrypto.decrypt(cipherEth);
+    const wallet = new ethers.Wallet(key as string, provider);
+    const contract = new ethers.Contract(testnftcol, NFTCollectionABI, wallet);
+  
+    const itemArray: INFT[] = [];
+    const totalSup = await contract.totalSupply();
     
-
-
-    // Funzione helper per il fetch di un singolo NFT
-    async function fetchNFT(token: number, contract: any, user: string): Promise<INFT | null> {
+    for (let i = 0; i < totalSup.toNumber(); i++) {
+      const token = i + 1;
       try {
-        // Recupera l'owner e i dati puzzle (incluso pieceOwners)
         const owner = await contract.ownerOf(token);
+        // Recupera le informazioni del puzzle per il token corrente
         const [puzzleId, puzzleOwner, pieceOwners]: [any, string, string[]] = await contract.getPuzzle(token);
-        
-        // Crea l'array dei pezzi posseduti dall'utente (true se l'indirizzo corrisponde)
-        const userPieces = pieceOwners.map((owner: string) =>
-          owner.toLowerCase() === user.toLowerCase()
-        );
-    
-        // Recupera il tokenURI e le metadata
+  
+        // Determina per ogni pezzo se è posseduto dall'utente connesso
+        const userPieces = pieceOwners.map((owner: string) => owner.toLowerCase() === user.toLowerCase());
+  
         const cleanUri = await contract.tokenURI(token);
         const metadata = await axios.get(cleanUri);
         const { name, description: desc, image: img, attributes } = metadata.data;
-    
-        // Estrai le dimensioni (se presenti) dalla proprietà "Misure"
+  
         let width, height;
+        // Estrae le dimensioni dalla proprietà "Misure"
         for (let attr of attributes) {
           if (attr.trait_type === "Misure") {
             const match = attr.value.match(/(\d+)[xX](\d+)/);
-            if (match) {
+            if(match) {
               width = parseInt(match[1]);
               height = parseInt(match[2]);
             }
             break;
           }
         }
-        
-        return { name, img, tokenId: token, wallet: puzzleOwner, desc, attributes, width, height, userPieces };
+  
+        // Aggiungi l'NFT all'array, indipendentemente dalla proprietà dei pezzi
+        itemArray.push({ name, img, tokenId: token, wallet: puzzleOwner, desc, attributes, width, height });
+  
+        // Imposta lo stato dei pezzi rivelati in base ai pezzi posseduti dall'utente
+        setRevealedPieces(prev => ({ 
+          ...prev, 
+          [token]: userPieces 
+        }));
       } catch (error) {
-        console.error(`Error fetching NFT for token ${token}:`, error);
-        return null;
+        console.error("Error fetching NFT or metadata", error);
       }
     }
     
-
-async function getWalletNFTs() {
-  if (!user) return; // Assicurati che l'utente sia connesso
-
-  const provider = new ethers.providers.JsonRpcProvider(testnet);
-  const key = simpleCrypto.decrypt(cipherEth);
-  const wallet = new ethers.Wallet(key as string, provider);
-  const contract = new ethers.Contract(testnftcol, NFTCollectionABI, wallet);
-
-  const totalSup = await contract.totalSupply();
-  const promises: Promise<INFT | null>[] = [];
-  for (let i = 0; i < totalSup.toNumber(); i++) {
-    const token = i + 1;
-    promises.push(fetchNFT(token, contract, user));
+    setNfts(itemArray);
+    setLoadingState('loaded');
   }
   
-  // Esegui in parallelo tutte le richieste
-  const nftItems = await Promise.all(promises);
-  // Filtra eventuali valori null (in caso di errori)
-  const filteredItems = nftItems.filter((item): item is INFT => item !== null);
-  setNfts(filteredItems);
+  const buyLot = async (puzzleId: number, lotId: number) => {
+    console.log("buyLot:----->");
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum as any);
+      const signer = provider.getSigner();
+      const erc20Contract = new ethers.Contract(puztoken, ERC20ABI, signer);
+      const contract = new ethers.Contract(testnftcol, NFTCollectionABI, signer);
 
- // Costruisci lo stato iniziale dei pezzi rivelati usando userPieces per ogni NFT
- const initialRevealed: { [tokenId: number]: boolean[] } = {};
- filteredItems.forEach((nft) => {
-   initialRevealed[nft.tokenId] = nft.userPieces;
- });
- setRevealedPieces(initialRevealed);
+      const lotprice = await  contract.getLotPriceByTokenIdAndLotId(puzzleId,lotId);
+      console.log("lotPrice: ", ethers.utils.formatUnits(lotprice, 'ether'));
 
-  setLoadingState('loaded');
-}
+      // Check the allowance
+      const allowance = await erc20Contract.allowance(user, testnftcol);
+      console.log("allowance:----->", ethers.utils.formatUnits(allowance, 'ether'));
   
-const buyLot = async (puzzleId: number, lotId: number) => {
-  console.log("buyLot:----->");
-  try {
-    // Recupera i dettagli del lotto dallo stato, dove è già presente il prezzo
-    const selectedLot = lotDetails.find((lot) => lot.id === lotId);
-    if (!selectedLot) {
-      throw new Error("Dettagli del lotto non trovati per lotId: " + lotId);
+      if (allowance.lt(lotprice)) {
+        console.log("lotPrice:----->", ethers.utils.formatUnits(lotprice, 'ether'));
+        // Approve the NFT contract to spend tokens
+        const approveTx = await erc20Contract.approve(testnftcol, lotprice);
+        await approveTx.wait();
+      }
+
+      const transaction = await contract.buyLot(puzzleId, lotId);
+
+      await transaction.wait();
+ 
+
+         // Aggiorna i dati dopo l'acquisto
+    await getWalletNFTs(); 
+    // Se necessario, aggiorna anche altri stati come claimableStatus o jollyCount qui
+
+      // Update the lotDetails state to reflect the purchase
+      setLotDetails((prevLotDetails) =>
+        prevLotDetails.map((lot) =>
+          lot.id === lotId ? { ...lot, isSold: true } : lot
+        )
+      );
+    } catch (error) {
+      console.error('Error buying lot:', error);
+      alert('Error buying lot. Please check the console for details.');
     }
-    // Converte il prezzo (che è stato salvato come numero) in un BigNumber
-    const lotprice = ethers.utils.parseEther(selectedLot.price.toString());
-    console.log("lotPrice: ", ethers.utils.formatUnits(lotprice, 'ether'));
-
-    const provider = new ethers.providers.Web3Provider(window.ethereum as any);
-    const signer = provider.getSigner();
-    const erc20Contract = new ethers.Contract(puztoken, ERC20ABI, signer);
-    const contract = new ethers.Contract(testnftcol, NFTCollectionABI, signer);
-
-    // Verifica l'allowance
-    const allowance = await erc20Contract.allowance(user, testnftcol);
-    console.log("allowance:----->", ethers.utils.formatUnits(allowance, 'ether'));
-
-    if (allowance.lt(lotprice)) {
-      console.log("lotPrice:----->", ethers.utils.formatUnits(lotprice, 'ether'));
-      // Approva il contratto NFT a spendere i token
-      const approveTx = await erc20Contract.approve(testnftcol, lotprice);
-      await approveTx.wait();
-      console.log("APPROVE1");
-    }
-    console.log("APPROVE2", ethers.utils.formatUnits(allowance, 'ether'));
-
-    // Esegui l'acquisto del lotto
-    const transaction = await contract.buyLot(puzzleId, lotId);
-    await transaction.wait();
-
-    // Aggiorna i dati dopo l'acquisto
-    await getWalletNFTs();
-    setLotDetails((prevLotDetails) =>
-      prevLotDetails.map((lot) =>
-        lot.id === lotId ? { ...lot, isSold: true } : lot
-      )
-    );
-  } catch (error) {
-    console.error('Error buying lot:', error);
-    alert('Error buying lot. Please check the console for details.');
-  }
-};
-
+  }; 
 
   const claimNFT = async (tokenId: number) => {
     console.log("claimNFT:----->");
@@ -500,19 +469,22 @@ const buyLot = async (puzzleId: number, lotId: number) => {
     pieceIndex: number;
     isRevealed: boolean;
   }) => {
-    const gridSize = 3; // griglia 3x3
+    const gridSize = 3; // Griglia 3x3
     const row = Math.floor(pieceIndex / gridSize);
     const col = pieceIndex % gridSize;
   
     return (
       <div
-        className={`${styles['puzzle-piece']} ${isRevealed ? styles['visible'] : ''}`}
+        className={`puzzle-piece ${isRevealed ? "visible" : ""}`}
         style={{
           backgroundImage: `url(${imgSrc})`,
-          backgroundSize: `${gridSize * 100}%`,
+          backgroundSize: `${gridSize * 100}%`,  
           backgroundPosition: `${(col * 100) / (gridSize - 1)}% ${(row * 100) / (gridSize - 1)}%`,
-          // Se vuoi mantenere un filtro dinamico, lo puoi lasciare:
+          opacity: isRevealed ? 1 : 0.6,
           filter: isRevealed ? "none" : "blur(1px) grayscale(90%)",
+          transition: "opacity 0.5s ease-in-out, filter 0.5s ease-in-out",
+          width: '100%',
+          height: '100%',
         }}
       ></div>
     );
@@ -523,25 +495,28 @@ const buyLot = async (puzzleId: number, lotId: number) => {
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      
-   
-
+        <div className="inline-block max-w-lg text-center justify-center">
+          <h1>NFT Puzzle Marketplace</h1>
+          <h4>Best NFT Puzzle Marketplace</h4>
+        </div>
       </section>
       {!isConnected ? (
   <div className="flex flex-col items-center justify-center mt-1">
-    <Button className={styles.cardCustom}  onClick={connectUser}>
+    <Button onClick={connectUser}>
       Connect
     </Button>
   </div>
 ) : (
   <div className="flex justify-between items-center w-full">
     {/* Sezione Saldo PuzToken */}
-    <div className={styles.custombox}>
-  Balance: {puzTokenBalance} Usdt
+    <div className="flex items-center space-x-2">
+      <span style={{ fontWeight: 'bold', color: 'white' }}>Balance:</span>
+      <span>{puzTokenBalance}</span>
+      <span style={{ color: 'white' }}>Usdt</span>
     </div>
     
     {/* Bottone Disconnect */}
-    <Button className={styles.cardCustom} onClick={disconnectUser} style={{ fontSize: '1em' }}>
+    <Button onClick={disconnectUser} style={{ fontSize: '1em' }}>
       Disconnect: {formatUserString(user)}
     </Button>
   </div>
@@ -549,112 +524,100 @@ const buyLot = async (puzzleId: number, lotId: number) => {
 
 
       <div className="mt-8">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-  {loadingState !== 'loaded'
-    ? Array.from({ length: 6 }).map((_, idx) => (
-        <div key={idx} className={styles.cardCustom}>
-          {/* Placeholder/Skeleton per header */}
-          <div className="animate-pulse flex flex-col items-center px-4 pt-2">
-            <div className="w-3/4 h-4 bg-gray-300 rounded mb-2"></div>
-            <div className="w-1/2 h-3 bg-gray-300 rounded"></div>
-          </div>
-          {/* Placeholder/Skeleton per body */}
-          <div className="animate-pulse flex justify-center items-center h-48 bg-gray-200"></div>
-          {/* Placeholder/Skeleton per footer */}
-          <div className="animate-pulse flex justify-around items-center py-2">
-            <div className="w-16 h-6 bg-gray-300 rounded"></div>
-            <div className="w-16 h-6 bg-gray-300 rounded"></div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {nfts.map((nft) => (
+            <Card className="justify-center items-center py-0" key={nft.tokenId} isHoverable isPressable>
+              <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+              <p className="text-tiny uppercase font-bold">{nft.name} - ID: {nft.tokenId}</p> 
+              <small className="text-default-500">Owner: {formatUserString(nft.wallet)}</small>            
+              <div className="attributes-grid mt-2">
+                {nft.attributes.map((attr, idx) => (
+                  <p key={idx} className="attribute text-xs">
+                    <strong>{attr.trait_type}</strong><br />
+                    {attr.value}
+                  </p>
+                ))}
+              </div>
+
+            </CardHeader>
+
+             
+            <CardBody>
+              <div 
+                className="puzzle-container" 
+                style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: 'repeat(3, 1fr)', 
+                  gap: '5px',
+                  width: '100%',  // Occupa tutta la larghezza disponibile
+                  aspectRatio: nft.width && nft.height ? `${nft.width} / ${nft.height}` : '1 / 1',
+                }}
+              >
+                {revealedPieces[nft.tokenId]?.map((isRevealed, pieceIndex) => (
+                  <PuzzlePiece 
+                    key={pieceIndex} 
+                    imgSrc={nft.img} 
+                    pieceIndex={pieceIndex} 
+                    isRevealed={isRevealed} 
+                  />
+                ))}
+              </div>
+            </CardBody>
+
+
+
+
+              <CardFooter className="flex justify-center items-center space-x-12 mb-5 ">
+              <Button onClick={() => revealPiece(nft.tokenId)}>
+  Reveal Random Piece
+</Button>
+
+              </CardFooter>
+              <CardFooter className="space-x-12 mb-5  w-full flex justify-between">
+              
+              <Button color="primary" variant="ghost"
+              onClick={() => handleCreateLotClick(nft.tokenId)} >
+                Buy Lots
+              </Button>   
+              {claimableStatus[nft.tokenId] && jollyCount>0 && (
+                <Button color="warning" variant="ghost"
+                  onClick={() => claimNFTWithJolly(nft.tokenId)}>
+                  Claim With Jolly
+                </Button>
+             
+              )}
+              {claimableStatus[nft.tokenId] && (
+                <Button color="warning" variant="ghost"
+                  onClick={() => claimNFT(nft.tokenId)}>
+                  Claim
+                </Button>
+             
+              )}
+               
+            </CardFooter>
+            </Card>
+          ))}
         </div>
-      ))
-    : nfts.map((nft) => (
-        <Card className={styles.cardCustom} key={nft.tokenId} isHoverable isPressable>
-          <CardHeader className="pb-0 pt-2 px-4 flex-col items-center text-center">
-            <p className="text-tiny uppercase font-bold">
-              {nft.name} - ID: {nft.tokenId}
-            </p>
-            <small className="text-default-500">
-              Owner: {formatUserString(nft.wallet)}
-            </small>
-            <div className="attributes-grid mt-2">
-              {nft.attributes.map((attr, idx) => (
-                <p key={idx} className="attribute text-xs">
-                  <strong>{attr.trait_type}</strong>
-                  <br />
-                  {attr.value}
-                </p>
-              ))}
-            </div>
-          </CardHeader>
-          <CardBody>
-            <div 
-              className={styles['puzzle-container']} 
-              style={{
-                aspectRatio: nft.width && nft.height ? `${nft.width} / ${nft.height}` : '1 / 1'
-              }}
-            >
-              {revealedPieces[nft.tokenId]?.map((isRevealed, pieceIndex) => (
-                <PuzzlePiece 
-                  key={pieceIndex} 
-                  imgSrc={nft.img} 
-                  pieceIndex={pieceIndex} 
-                  isRevealed={isRevealed} 
-                />
-              ))}
-            </div>
-          </CardBody>
-          <CardFooter className="flex justify-center items-center space-x-12 mb-5">
-            <Button className={styles.revealButton} onClick={() => revealPiece(nft.tokenId)}>
-              Reveal Random Piece
-              <img src="/revealimg.png" alt="Reveal Icon" />
-            </Button>
-          </CardFooter>
-          <CardFooter className="space-x-12 mb-5 w-full flex justify-between">
-            <Button className={styles.buyLotsButton} justify-center items-center color="primary" variant="ghost"
-              onClick={() => handleCreateLotClick(nft.tokenId)}>
-              Buy Lots
-              <img src="/icon.svg" alt="Icon" />
-            </Button>
-            {claimableStatus[nft.tokenId] && jollyCount > 0 && (
-              <Button className={styles.buyLotsButton} color="warning" variant="ghost"
-                onClick={() => claimNFTWithJolly(nft.tokenId)}>
-                Claim With Jolly
-              </Button>
-            )}
-            {claimableStatus[nft.tokenId] && (
-              <Button className={styles.buyLotsButton} color="warning" variant="ghost"
-                onClick={() => claimNFT(nft.tokenId)}>
-                Claim
-              </Button>
-            )}
-          </CardFooter>
-        </Card>
-      ))}
-</div>
-
       </div>
-{/* Rimuovi o commenta questi blocchi se non servono più */}
-{/*
-<style jsx>{`
-  .puzzle-container {
-    width: 100%;
-    aspect-ratio: 1;
-  }
-  .puzzle-piece {
-    background-size: 300%;
-    background-repeat: no-repeat;
-    width: 100%;
-    aspect-ratio: 1;
-    opacity: 0.2;
-    transition: opacity 0.5s ease-in-out;
-  }
-  .puzzle-piece.visible {
-    opacity: 1;
-    filter: none;
-  }
-`}</style>
-*/}
 
+      <style jsx>{`
+        .puzzle-container {
+          width: 100%;
+          aspect-ratio: 1;
+        }
+        .puzzle-piece {
+          background-size: 300%; /* Scegli la dimensione desiderata */
+          background-repeat: no-repeat;
+          width: 100%;
+          aspect-ratio: 1;
+          opacity: 0.2;
+          transition: opacity 0.5s ease-in-out;
+        }
+        .puzzle-piece.visible {
+          opacity: 1;
+          filter: none;
+        }
+      `}</style>
       <style jsx>{`
   .attributes-grid {
     display: grid;
@@ -668,42 +631,35 @@ const buyLot = async (puzzleId: number, lotId: number) => {
   }
 `}</style>
 <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
-      <ModalContent className={`${styles.cardCustom} ${styles.modalWide}`}> 
+      <ModalContent style={{ width: '120%' }}> 
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">Lots Token - {selectedTokenId}</ModalHeader>
               <ModalBody>
-              <div className="grid grid-cols-7 gap-4 mb-1 p-2 border-b border-gray-200">
-  <div>Lot N</div>
-  <div>Price</div>
-  <div>Piece</div>
-  <div>Jolly</div>
-  <div>Owner</div>
-  <div></div>
-</div>
-{lotDetails.map((lot) => (
-  <div key={lot.id} className="flex justify-center grid grid-cols-7 gap-4 mb-2 p-2 border-gray-200">
-    <div>{lot.id}</div>
-    <div>{lot.price}</div>
-    <div>{lot.isRevealed ? lot.pieceIds.join(", ") : "Hidden"}</div>
-    <div>{lot.hasJolly ? "Yes" : "No"}</div>
-    <div>{formatUserString(lot.owner ?? "N/A")}</div>
-    <div className="flex justify-center mt-[-8px]">
-      {(lot.owner ?? "").toLowerCase() === user.toLowerCase() ? (
-        "Already My lot"
-      ) : (
-        <Button  
-          className={styles.buyLotsButton}
-          style={{ transform: "scale(0.6)" }}
-          onClick={() => buyLot(Number(selectedTokenId), lot.id)}
-        >
-          Buy Lot n.{lot.id}
-        </Button>
-      )}
-    </div>
-  </div>
-))}
-
+              <div className="grid grid-cols-6 gap-4 mb-1 p-2 border-b border-gray-200">
+                  <div>Lot N</div>
+                  <div>Price</div>
+                  <div>Piece</div>
+                  <div>Jolly</div>
+                  <div></div>
+                </div>
+                {lotDetails.map((lot) => (
+                  <div key={lot.id} className="flex justify-center grid grid-cols-6 gap-4 mb-2 p-2 border-gray-200">
+                    <div>{lot.id}</div>
+                    
+                    <div>{lot.price}</div>
+                    <div>{lot.isRevealed ? lot.pieceIds.join(', ') : 'Hidden'}</div>
+                    <div>{lot.hasJolly ? 'Yes' : 'No'}</div>
+                    <div className="flex justify-center mt-[-8px]">{lot.isSold ? 'Already Sold' : <Button  color="primary" variant="ghost"
+              //  onClick={() => handleCreateLotClick(nft.tokenId)} 
+              onClick={() => buyLot(Number(selectedTokenId), lot.id)}
+              >
+                  Buy Lot n.{lot.id} 
+                </Button> }</div>
+                    
+                  </div>
+                  
+                ))}
               </ModalBody>
               <ModalFooter>
               <div className="flex justify-center w-full">

@@ -8,19 +8,17 @@ import "@/styles/globals.css";
 
 
 
-function MyApp({ Component, pageProps }: AppProps) {
-	const router = useRouter();
-  
+export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
 	return (
-	  <NextUIProvider navigate={router.push}>
-		<NextThemesProvider attribute="class" forcedTheme="dark">
-		  <Component {...pageProps} />
-		</NextThemesProvider>
-	  </NextUIProvider>
+		<NextUIProvider navigate={router.push} >
+			<NextThemesProvider>
+				<Component {...pageProps} />
+			</NextThemesProvider>
+		</NextUIProvider>
 	);
-  }
-  
-  export default appWithTranslation(MyApp); // Avvolge il componente App
+}
 
 export const fonts = {
 	sans: fontSans.style.fontFamily,

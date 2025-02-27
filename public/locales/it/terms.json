@@ -1,0 +1,22 @@
+{
+  "pageTitle": "Termini e Condizioni Legali – NFT Puzzle",
+  "pageSubtitle": "Conformità alle Normative Europee",
+  "section1Title": "1. Introduzione e Scopo del Sistema",
+  "section1Content": "Il presente sistema è stato sviluppato con l’obiettivo di creare un’esperienza interattiva finalizzata alla promozione di artisti emergenti, consentendo la distribuzione delle loro opere attraverso un meccanismo di collezionismo digitale basato su NFT.\n\nL’accesso e la partecipazione al sistema sono interamente volontari e subordinati all’accettazione delle presenti condizioni generali di utilizzo. Partecipando, l’utente accetta integralmente tutte le condizioni e rinuncia a qualsiasi contestazione nei confronti del creatore del sistema o della piattaforma.",
+  "section2Title": "2. Conformità alla Direttiva AML e Limiti di Valore",
+  "section2Content": "Il sistema è stato progettato nel rispetto delle normative europee in materia di antiriciclaggio, tra cui:\n\n- Direttiva (UE) 2015/849 (AMLD4)\n- Direttiva (UE) 2018/843 (AMLD5)\n- Direttiva (UE) 2019/2177 (AMLD6)\n\n2.1 Soglia di 1.000 € per KYC e Compliance AML\n\nAi sensi dell’Articolo 11 della Direttiva AMLD5, gli obblighi di verifica dell'identità (KYC) si applicano esclusivamente per transazioni di importo pari o superiore a 1.000 euro. Tale previsione garantisce che le operazioni di valore inferiore siano esentate dagli obblighi di identificazione formale.\n\nPer garantire la piena conformità:\n- Il valore massimo di ogni NFT (puzzle) è inferiore a 1.000 euro.\n- Tutte le transazioni sono registrate su blockchain per garantire trasparenza e tracciabilità.\n- Il sistema non consente transazioni frazionate o seriali finalizzate a eludere tale soglia.",
+  "section3Title": "3. Conformità al Regolamento MiCA",
+  "section3Content": "Il Regolamento (UE) 2023/1114 (MiCA) disciplina gli asset digitali e i servizi correlati. Tuttavia, l’Articolo 4 stabilisce che gli NFT unici non rientrano tra i crypto-asset regolamentati, a condizione che non abbiano caratteristiche assimilabili a strumenti finanziari.",
+  "section4Title": "4. Regolamento sulla Travel Rule e Transazioni Crypto",
+  "section4Content": "Il Regolamento (UE) 2023/1113 estende le misure di controllo alle transazioni crypto nell’ambito della prevenzione del riciclaggio di denaro. L’Articolo 4 stabilisce che gli obblighi di identificazione non si applicano alle transazioni inferiori a 1.000 euro, definendo una soglia chiara per la verifica dell’identità nei trasferimenti di asset digitali.",
+  "section5Title": "5. Protezione dei Consumatori e Direttiva PSD2",
+  "section5Content": "Il sistema rispetta le disposizioni della Direttiva (UE) 2015/2366 (PSD2), che disciplina i servizi di pagamento elettronico. L’Articolo 3(k) esclude dall’applicazione delle misure più stringenti i pagamenti elettronici singoli di importo inferiore a 1.000 euro.",
+  "section6Title": "6. GDPR e Trattamento dei Dati",
+  "section6Content": "Il sistema è conforme al Regolamento Generale sulla Protezione dei Dati (GDPR - Regolamento UE 2016/679). Non vengono raccolti dati personali oltre quelli strettamente necessari per il corretto funzionamento del sistema, garantendo la tutela della privacy degli utenti.",
+  "section7Title": "7. Proprietà degli NFT e Regole di Assemblaggio",
+  "section7Content": "Una volta completato un puzzle e effettuato il claim dell'NFT completo, questo diventa piena proprietà dell'utente.\n\nL'opera assemblata non può essere scomposta, salvo decisione volontaria del proprietario.\n\nL'NFT completo può essere conservato, venduto o trasferito, secondo le regole della blockchain.",
+  "section8Title": "8. Responsabilità e Trasparenza",
+  "section8Content": "Il creatore del sistema non è responsabile per eventuali perdite economiche o variazioni di valore degli NFT.\n\nIl valore degli NFT non è garantito e dipende esclusivamente dall'interazione tra gli utenti.\n\nLa piattaforma non offre servizi di investimento, rimanendo conforme al Regolamento MiCA.",
+  "section9Title": "9. Conclusione",
+  "section9Content": "Il sistema è stato progettato per garantire la piena conformità alle normative europee, tra cui AMLD5, MiCA, PSD2 e GDPR, fornendo un ambiente sicuro e trasparente.\n\nPartecipando, ogni utente accetta senza riserve le presenti condizioni e si assume la piena responsabilità per la propria esperienza all’interno del sistema."
+}

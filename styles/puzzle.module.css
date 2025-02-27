@@ -1,0 +1,129 @@
+
+  
+  .puzzle-container {
+ 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    background: linear-gradient(180deg, var(--gradient-start), var(--gradient-end));
+    border-radius: 12px;
+    padding: 10px;
+  }
+  
+  .puzzle-piece {
+    background-size: 300%;
+    background-repeat: no-repeat;
+    width: 100%;
+   
+    opacity: 0.3;
+    transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out;
+    border: 2px solid var(--highlight);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .puzzle-piece.visible {
+    opacity: 1;
+    filter: none;
+  }
+  
+  .button {
+    background-color: var(--button-primary);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: var(--button-hover);
+  }
+  /* puzzle.module.css */
+/* puzzle.module.css */
+.cardCustom {
+    border-radius: 42px;
+    border: 1px solid #FFF8F8;
+    /* Assicurati di sostituire '/path-to-image.jpg' con il percorso reale dell'immagine */
+    background: url('/card_background.png') lightgray 50% / cover no-repeat;
+  }
+
+  .custombox {
+    border-radius: 18px;
+    border: 1px solid #FFF;
+    background: linear-gradient(274deg, #591390 4.39%, #321197 78.56%);
+ 
+    flex-shrink: 0;
+  padding: 16px;           /* Spazio interno tra bordo e contenuto */
+  box-sizing: border-box;  /* Include il padding nelle dimensioni totali */
+  display: flex;           /* Per allineare i contenuti in modo flessibile */
+  align-items: center;     /* Centra verticalmente gli elementi */
+  justify-content: space-between; /* Distribuisce gli elementi in modo uniforme */
+  }
+  
+  
+  /* puzzle.module.css */
+.buyLotsButton {
+    border-radius: 29.455px;
+    background: radial-gradient(50% 50% at 50% 50%, #A47CF3 0%, #683FEA 100%);
+
+    display: flex;
+    width: 205px;
+    height: 55px;
+    padding: 13px 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border: none;           /* Rimuove eventuali bordi predefiniti */
+    cursor: pointer;        /* Mostra il puntatore al passaggio del mouse */
+    font-size: 16px;        /* Imposta la dimensione del testo */
+    font-weight: bold;      /* Eventuale peso del testo */
+    color: #fff;            /* Colore del testo */
+  }
+  
+  /* Se desideri controllare le dimensioni dell'icona (icon.svg) all'interno del bottone */
+  .buyLotsButton img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+  /* puzzle.module.css */
+/* puzzle.module.css */
+/* puzzle.module.css */
+.revealButton {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    width: 238px;
+    height: 55px;
+    flex-shrink: 0;
+    
+    /* Per allineare l'icona e il testo affiancati */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    
+    /* Eventuali stili aggiuntivi */
+    border: none;
+    cursor: pointer;
+ /* Imposta il background con reveal.svg che copre l'intera area */
+ background: url('/reveal.svg') no-repeat center center;
+ background-size: cover; /* Oppure background-size: 100% 100%; */
+ 
+ /* Eventuali stili per il testo sopra il background */
+ color: #fff;
+ font-size: 16px;
+ font-weight: bold;
+    
+  }
+  
+  /* Se desideri controllare le dimensioni dell'immagine all'interno del bottone */
+  .revealButton img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+  
+  /* puzzle.module.css */
+.modalWide {
+  width: 130% !important; /* Aumenta la larghezza del 30% rispetto alla base */
+  max-width: none; /* Rimuove eventuali limiti imposti sulla larghezza massima */
+}

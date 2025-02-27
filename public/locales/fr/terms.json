@@ -1,0 +1,28 @@
+{
+    "pageTitle": "Regolamento – NFT Puzzle",
+    "pageSubtitle": "Digital Art Collecting Game",
+    "section1Title": "1. Struttura dello Sistema",
+    "section1_1Title": "1.1. Opere d'Arte e Pezzi di Puzzle",
+    "section1_1Content": "- Ogni opera d’arte è suddivisa in un puzzle composto da un minimo di 9 pezzi.\n- Ogni pezzo è un NFT unico e non fungibile, rappresentando una parte esclusiva dell’opera completa.\n- I pezzi sono distribuiti in lotti, ciascuno dei quali può contenere uno o più pezzi del puzzle.\n- Alcuni lotti possono essere acquistati \"al buio\", senza conoscere il contenuto fino all’acquisto.\n- Alcuni lotti possono contenere Jolly, ovvero Token Fungibili che possono sostituire qualsiasi pezzo mancante nel puzzle.\n- Ogni NFT è verificabile sulla blockchain e dispone di un codice identificativo che ne certifica autenticità e proprietà.",
+    "section2Title": "2. Acquisto e Blocco Temporaneo dei Pezzi",
+    "section2_1Title": "2.1. Modalità di Acquisto",
+    "section2_1Content": "I pezzi possono essere acquistati in due modi:\n1. Mercato Primario – Quando vengono inizialmente resi disponibili.\n2. Mercato Secondario – Acquistandoli da altri partecipanti.\n\n- I prezzi sono indicati in Euro e nel corrispondente valore in USDT (Tether).\n- Le transazioni su blockchain avvengono esclusivamente in USDT, convertibile da Euro o altre valute fiat.",
+    "section2_2Title": "2.2. Blocco Temporaneo",
+    "section2_2Content": "- Dopo l’acquisto, il pezzo viene temporaneamente bloccato sul mercato per un numero casuale di secondi, durante i quali nessun altro può acquistarlo.\n- Durante il blocco, l’acquirente può:\n  - Cercare e acquistare altri pezzi necessari per completare il puzzle.\n  - Contattare altri giocatori per eventuali scambi.\n  - Utilizzare un Jolly per sostituire un pezzo mancante.\n- Se l’acquirente non compie ulteriori azioni entro il tempo stabilito, il pezzo torna disponibile sul mercato con un prezzo maggiorato del 20%.",
+    "section3Title": "3. Completamento del Puzzle e Claim dell’Opera d’Arte",
+    "section3Content": "- Quando un partecipante raccoglie tutti i pezzi dell’opera (o utilizza uno o più Jolly per completarla), può effettuare il Claim dell’NFT completo.\n- Il Claim permette di assemblare l’opera e ricevere l’NFT finale, che rappresenta l’opera completa.\n- Una volta completato il puzzle:\n  - I pezzi individuali vengono rimossi dal mercato.\n  - L’NFT completo può essere conservato, rivenduto o utilizzato per vantaggi esclusivi.",
+    "section4Title": "4. Dinamica di Mercato e Rivalutazione Automatica",
+    "section4_1Title": "4.1. Rivalutazione dei Prezzi",
+    "section4_1Content": "- Ogni pezzo acquistato viene rimesso in vendita con un prezzo aumentato del 20% rispetto al precedente.\n- Questo meccanismo incentiva sia il rapido acquisto che una pianificazione attenta delle strategie di gioco.",
+    "section5Title": "5. Strategie e Scelte dei Partecipanti",
+    "section5Content": "Il sistema permette ai giocatori di adottare diverse strategie per completare le opere d’arte:\n- **Completamento Diretto:** Acquistare rapidamente tutti i pezzi necessari.\n- **Collezione Selettiva:** Focalizzarsi su pezzi rari o su opere specifiche.\n- **Uso Strategico dei Jolly:** Utilizzare i Jolly per evitare costi elevati.\n- **Scambi e Collaborazioni:** Coordinarsi per scambi strategici.",
+    "section6Title": "6. Responsabilità e Accettazione delle Regole",
+    "section6Content": "- La partecipazione è volontaria e implica l’**accettazione totale** delle regole.\n- Il creatore del sistema **non è responsabile** per eventuali perdite economiche o variazioni di prezzo.\n- Gli utenti accettano di non rivalersi sul creatore o sugli sviluppatori.",
+    "section7Title": "7. Blockchain e Sicurezza del Sistema",
+    "section7Content": "- Tutte le transazioni e gli NFT sono registrati su blockchain, garantendo autenticità, tracciabilità e sicurezza.\n- Ogni pezzo è associato a un portafoglio digitale, e solo il proprietario può gestirlo.",
+    "section8Title": "8. Conclusioni",
+    "section8Content": "NFT Puzzle offre un’esperienza innovativa che fonde arte, NFT e strategia, invitando i partecipanti a collezionare e completare opere d’arte digitali in un ambiente dinamico e competitivo.",
+    "section9Title": "9. Accettazione delle Regole",
+    "section9Content": "Partecipando, ogni utente accetta senza riserve tutte le regole indicate, assumendosi la piena responsabilità della propria esperienza e dichiarando di aver compreso le dinamiche del gioco."
+  }
+  

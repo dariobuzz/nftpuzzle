@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* styles/globals.css */
+:root {
+    --primary-bg: #0c0030;
+    --secondary-bg: #4e008f;
+    --gradient-start: #7e1dd0;
+    --gradient-end: #1a002b;
+    --button-primary: #3d36b0;
+    --button-hover: #4e008f;
+    --text-color: #ffffff;
+    --highlight: #ffcc66;
+  }
+  /* styles/globals.css */
+/* styles/globals.css */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "ADLaM Display", sans-serif;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/sitebackground.png') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+}
+/* styles/globals.css */
+@font-face {
+    font-family: "ADLaM Display";
+    src: url('/fonts/ADLaMDisplay.woff2') format('woff2'),
+         url('/fonts/ADLaMDisplay.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  

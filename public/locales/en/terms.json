@@ -1,0 +1,22 @@
+{
+  "pageTitle": "Legal Terms and Conditions – NFT Puzzle",
+  "pageSubtitle": "Compliance with European Regulations",
+  "section1Title": "1. Introduction and Purpose of the System",
+  "section1Content": "This system has been developed with the aim of creating an interactive experience designed to promote emerging artists, enabling the distribution of their works through a digital collecting mechanism based on NFTs.\n\nAccess to and participation in the system are entirely voluntary and subject to acceptance of these general terms of use. By participating, the user fully accepts all the terms and waives any claims against the system creator or the platform.",
+  "section2Title": "2. Compliance with the AML Directive and Value Limits",
+  "section2Content": "The system has been designed in compliance with European anti-money laundering regulations, including:\n\n- Directive (EU) 2015/849 (AMLD4)\n- Directive (EU) 2018/843 (AMLD5)\n- Directive (EU) 2019/2177 (AMLD6)\n\n2.1 Threshold of €1,000 for KYC and AML Compliance\n\nPursuant to Article 11 of AMLD5, identity verification (KYC) requirements apply exclusively to transactions of €1,000 or more. This provision ensures that transactions of lower value are exempt from formal identification requirements.\n\nTo ensure full compliance:\n- The maximum value of each NFT (puzzle) is less than €1,000.\n- All transactions are recorded on the blockchain to ensure transparency and traceability.\n- The system does not allow fractional or serial transactions intended to circumvent this threshold.",
+  "section3Title": "3. Compliance with the MiCA Regulation",
+  "section3Content": "The Regulation (EU) 2023/1114 (MiCA) governs digital assets and related services. However, Article 4 states that unique NFTs are not classified as regulated crypto-assets, provided they do not have characteristics similar to financial instruments.",
+  "section4Title": "4. Travel Rule and Crypto Transaction Regulation",
+  "section4Content": "Regulation (EU) 2023/1113 extends control measures to crypto transactions in the context of money laundering prevention. Article 4 establishes that identification requirements do not apply to transactions below €1,000, defining a clear threshold for identity verification in digital asset transfers.",
+  "section5Title": "5. Consumer Protection and PSD2 Directive",
+  "section5Content": "The system complies with the provisions of Directive (EU) 2015/2366 (PSD2), which governs electronic payment services. Article 3(k) excludes from the application of the stricter measures single electronic payments of less than €1,000.",
+  "section6Title": "6. GDPR and Data Processing",
+  "section6Content": "The system complies with the General Data Protection Regulation (GDPR - Regulation (EU) 2016/679). No personal data is collected beyond what is strictly necessary for the proper functioning of the system, ensuring the protection of users' privacy.",
+  "section7Title": "7. Ownership of NFTs and Assembly Rules",
+  "section7Content": "Once a puzzle is completed and the complete NFT is claimed, it becomes the full property of the user.\n\nThe assembled work cannot be disassembled unless the owner voluntarily decides to do so.\n\nThe complete NFT can be kept, sold, or transferred according to the rules of the blockchain.",
+  "section8Title": "8. Liability and Transparency",
+  "section8Content": "The creator of the system is not responsible for any economic losses or fluctuations in the value of NFTs.\n\nThe value of NFTs is not guaranteed and depends solely on the interaction among users.\n\nThe platform does not offer investment services, remaining in compliance with the MiCA Regulation.",
+  "section9Title": "9. Conclusion",
+  "section9Content": "The system has been designed to ensure full compliance with European regulations, including AMLD5, MiCA, PSD2, and GDPR, providing a safe and transparent environment.\n\nBy participating, each user unreservedly accepts these terms and assumes full responsibility for their experience within the system."
+}
