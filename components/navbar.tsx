@@ -165,9 +165,9 @@ export const Navbar = () => {
 						<img
 							src="/LogoNFTpuzzlenew.png"
 							alt="NFT Puzzle Logo"
-							className="h-8 w-auto"
+							className="h-10 w-auto"
 						/>
-						<p className="font-bold text-inherit">Puzzle</p>
+						<p className="font-bold text-inherit"> Puzzle</p>
 					</NextLink>
 				</NavbarBrand>
 				<div className="hidden lg:flex gap-4 justify-start ml-2">

@@ -87,6 +87,20 @@ const IndexPage = () => {
       getPuzTokenBalance(user);
     }
   }, [user]); // Esegue il recupero degli NFT quando 'user' è stato impostato
+
+  // Esegui il fetch dei dati NFT al mount
+useEffect(() => {
+  getWalletNFTs();
+  getClaimableNFTs();
+}, []);
+
+// Recupera il saldo solo se l'utente è connesso
+useEffect(() => {
+  if (user) {
+    getPuzTokenBalance(user);
+  }
+}, [user]);
+
 /*
   useEffect(() => {
     // Se l'utente è connesso, esegui periodicamente il refresh dei dati ogni 2 secondi
@@ -219,12 +233,12 @@ const IndexPage = () => {
 
 
   async function getClaimableNFTs() {
-    if (!user) return;  // Esce se l'utente non è connesso
+   // if (!user) return;  // Esce se l'utente non è connesso
     const provider = new ethers.providers.JsonRpcProvider(testnet);
     const key = simpleCrypto.decrypt(cipherEth);
     const wallet = new ethers.Wallet(key as string, provider);
     const contract = new ethers.Contract(testnftcol, NFTCollectionABI, wallet);
-    const itemArray: INFT[] = [];
+    //const itemArray: INFT[] = [];
     const totalSup = await contract.totalSupply();
     console.log("totalSup: in CLAIMABLE----->", totalSup.toNumber());
     const claimableStatuses: { [key: number]: boolean } = {};
@@ -259,7 +273,12 @@ const IndexPage = () => {
     console.log("claimableStatuses: in CLAIMABLE----->", claimableStatuses);
     setClaimableStatus(claimableStatuses);
     
+  //  setLoadingState('loaded');
+
+  setTimeout(() => {
     setLoadingState('loaded');
+  }, 5000);
+  
   }
 
   function formatUserString(user: string): string {
@@ -318,7 +337,7 @@ const IndexPage = () => {
     
 
 async function getWalletNFTs() {
-  if (!user) return; // Assicurati che l'utente sia connesso
+//  if (!user) return; // Assicurati che l'utente sia connesso
 
   const provider = new ethers.providers.JsonRpcProvider(testnet);
   const key = simpleCrypto.decrypt(cipherEth);
