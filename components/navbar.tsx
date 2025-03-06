@@ -167,7 +167,7 @@ export const Navbar = () => {
 							alt="NFT Puzzle Logo"
 							className="h-10 w-auto"
 						/>
-						<p className="font-bold text-inherit"> Puzzle</p>
+					
 					</NextLink>
 				</NavbarBrand>
 				<div className="hidden lg:flex gap-4 justify-start ml-2">

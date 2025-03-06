@@ -531,7 +531,11 @@ const buyLot = async (puzzleId: number, lotId: number) => {
           backgroundSize: `${gridSize * 100}%`,
           backgroundPosition: `${(col * 100) / (gridSize - 1)}% ${(row * 100) / (gridSize - 1)}%`,
           // Se vuoi mantenere un filtro dinamico, lo puoi lasciare:
-          filter: isRevealed ? "none" : "blur(1px) grayscale(90%)",
+        //  filter: isRevealed ? "none" : "blur(1px) grayscale(90%)",
+        filter: "none",
+          transform: "translateZ(0)",         // Forza l'accelerazione hardware
+          backfaceVisibility: "hidden",        // Migliora il rendering su Safari
+          willChange: "filter, opacity",       // Suggerisce al browser di ottimizzare queste proprietà
         }}
       ></div>
     );
@@ -628,7 +632,7 @@ const buyLot = async (puzzleId: number, lotId: number) => {
               <img src="/revealimg.png" alt="Reveal Icon" />
             </Button>
           </CardFooter>
-          <CardFooter className="space-x-12 mb-5 w-full flex justify-between">
+          <CardFooter className="space-x-12 mb-5 w-full flex justify-between justify-center items-center ">
             <Button className={styles.buyLotsButton} justify-center items-center color="primary" variant="ghost"
               onClick={() => handleCreateLotClick(nft.tokenId)}>
               Buy Lots
@@ -701,13 +705,13 @@ const buyLot = async (puzzleId: number, lotId: number) => {
   <div></div>
 </div>
 {lotDetails.map((lot) => (
-  <div key={lot.id} className="flex justify-center grid grid-cols-7 gap-4 mb-2 p-2 border-gray-200">
+  <div key={lot.id}  className="grid grid-cols-7 gap-4 mb-2 p-2 border-gray-200 text-center items-center">
     <div>{lot.id}</div>
     <div>{lot.price}</div>
     <div>{lot.isRevealed ? lot.pieceIds.join(", ") : "Hidden"}</div>
     <div>{lot.hasJolly ? "Yes" : "No"}</div>
     <div>{formatUserString(lot.owner ?? "N/A")}</div>
-    <div className="flex justify-center mt-[-8px]">
+    <div className="flex justify-center items-center">
       {(lot.owner ?? "").toLowerCase() === user.toLowerCase() ? (
         "Already My lot"
       ) : (

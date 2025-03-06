@@ -19,11 +19,17 @@
     transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out;
     border: 2px solid var(--highlight);
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    transform: translateZ(0);        /* Forza il rendering hardware */
+  backface-visibility: hidden;       /* Previene problemi di rendering su Safari */
+  will-change: filter, opacity;      /* Indica al browser di ottimizzare queste proprietà */
   }
   
   .puzzle-piece.visible {
     opacity: 1;
     filter: none;
+    transform: translateZ(0);        /* Forza il rendering hardware */
+  backface-visibility: hidden;       /* Previene problemi di rendering su Safari */
+  will-change: filter, opacity;      /* Indica al browser di ottimizzare queste proprietà */
   }
   
   .button {
