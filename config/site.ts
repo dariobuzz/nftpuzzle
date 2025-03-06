@@ -21,10 +21,7 @@ export const siteConfig = {
       label: "Create",
       href: "/about",
     },
-	{
-		label: "Terms and Conditions",
-		href: "/terms",
-	  },
+
 	],
 	navMenuItems: [
 		{
@@ -44,10 +41,7 @@ export const siteConfig = {
       label: "Create",
       href: "/about",
     },
-	{
-		label: "Terms and Conditions",
-		href: "/terms",
-	  },
+	
 	],
 
 };

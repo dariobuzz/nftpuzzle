@@ -298,26 +298,30 @@ useEffect(() => {
     
 
 
-    // Funzione helper per il fetch di un singolo NFT
     async function fetchNFT(token: number, contract: any, user: string): Promise<INFT | null> {
       try {
-        // Recupera l'owner e i dati puzzle (incluso pieceOwners)
+        // Recupera owner e dati puzzle
         const owner = await contract.ownerOf(token);
         const [puzzleId, puzzleOwner, pieceOwners]: [any, string, string[]] = await contract.getPuzzle(token);
-        
-        // Crea l'array dei pezzi posseduti dall'utente (true se l'indirizzo corrisponde)
         const userPieces = pieceOwners.map((owner: string) =>
           owner.toLowerCase() === user.toLowerCase()
         );
     
-        // Recupera il tokenURI e le metadata
+        // Recupera il tokenURI e i metadati da IPFS
         const cleanUri = await contract.tokenURI(token);
         const metadata = await axios.get(cleanUri);
-        const { name, description: desc, image: img, attributes } = metadata.data;
+        const { name: metaName, description, image, attributes: metaAttrs } = metadata.data;
     
-        // Estrai le dimensioni (se presenti) dalla proprietà "Misure"
-        let width, height;
-        for (let attr of attributes) {
+        // Per i token 1-9, sostituisce l'immagine con quella presente nel server locale
+        let finalImg = image;
+        if (token <= 9) {
+          finalImg = `/img/${token}.jpg`;
+        }
+    
+        // Estrae le dimensioni, se presenti, dalla proprietà "Misure"
+        let width: number | undefined = undefined;
+        let height: number | undefined = undefined;
+        for (let attr of metaAttrs) {
           if (attr.trait_type === "Misure") {
             const match = attr.value.match(/(\d+)[xX](\d+)/);
             if (match) {
@@ -327,13 +331,24 @@ useEffect(() => {
             break;
           }
         }
-        
-        return { name, img, tokenId: token, wallet: puzzleOwner, desc, attributes, width, height, userPieces };
+    
+        return {
+          name: metaName,
+          img: finalImg,
+          tokenId: token,
+          wallet: puzzleOwner,
+          desc: description,
+          attributes: metaAttrs,
+          width,
+          height,
+          userPieces
+        };
       } catch (error) {
         console.error(`Error fetching NFT for token ${token}:`, error);
         return null;
       }
     }
+    
     
 
 async function getWalletNFTs() {

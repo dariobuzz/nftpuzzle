@@ -13,7 +13,7 @@ const RegolamentoPage = () => {
     <DefaultLayout>
       <section className="container mx-auto px-4 py-8">
         {/* Selettore lingua */}
-        <LanguageSelector />
+        
 
         {/* Titolo e sottotitolo centrati */}
         <div className="text-center mb-8">
@@ -107,6 +107,7 @@ const RegolamentoPage = () => {
             </div>
           </section>
         </article>
+        <LanguageSelector />
       </section>
     </DefaultLayout>
   );

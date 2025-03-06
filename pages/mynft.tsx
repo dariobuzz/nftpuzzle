@@ -222,69 +222,79 @@ async function getLotDetails(tokenId: number, lotId: number) {
 		<DefaultLayout>
 			<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
 				<div className="inline-block max-w-lg text-center justify-center">
-					<h1 className={title()}>My Nft&nbsp;</h1>
-					<h1 className={title({ color: "violet" })}>Puzzle&nbsp;</h1>
-					<h4 className={subtitle({ class: "mt-4" })}>
-						Best NFT Puzzle Marketplace
-					</h4>
+					<h1 className={title()}>My Nft Puzzle&nbsp;</h1>		
 				</div>
 			</section>
     
   
       <div className="mt-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {loadingState !== 'loaded' ? (
-            // Placeholder/skeleton per mostrare subito la struttura delle card
-            Array.from({ length: 6 }).map((_, idx) => (
-              <Card key={idx} className={styles.cardCustom} isHoverable isPressable>
-                <CardHeader className="animate-pulse pb-0 pt-2 px-4 flex-col items-start">
-                  <div className="w-3/4 h-4 bg-gray-300 rounded mb-2"></div>
-                  <div className="w-1/2 h-3 bg-gray-300 rounded mb-2"></div>
-                  <div className="w-1/2 h-3 bg-gray-300 rounded"></div>
-                </CardHeader>
-                <CardBody>
-                  <div className="animate-pulse w-full h-48 bg-gray-200"></div>
-                </CardBody>
-                <CardFooter className="animate-pulse space-x-12 mb-5">
-                  <div className="w-20 h-6 bg-gray-300 rounded"></div>
-                </CardFooter>
-              </Card>
-            ))
-          ) : (
-            // Mostra le card con i dati reali
-            nfts.map((nft) => (
-              <Card
-                className={styles.cardCustom}
-                key={nft.tokenId}
-                isHoverable
-                isPressable
-              >
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                  <p className="text-tiny uppercase font-bold">{nft.name}</p>
-                  <small className="text-default-500">{nft.desc}</small>
-                  <h4 className="font-bold text-large">Puzzle ID: {nft.tokenId}</h4>
-                  <small className="text-default-500">Owner: {formatUserString(nft.wallet)}</small>
-                  <small className="font-bold text-default-500">
-                    Lots Created: {nft.lotCount.toString()}
-                  </small>
-                </CardHeader>
-                <CardBody>
-                  <Image src={nft.img} width="100%" alt={nft.name} />
-                </CardBody>
-                <CardFooter className="space-x-12 mb-5">
-                  <Button
-                    radius="full"
-                    className={styles.buyLotsButton}
-                    onClick={() => handleCreateLotClick(nft.tokenId)}
-                  >
-                    Create New Lot
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))
-          )}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    {loadingState !== 'loaded' ? (
+      // Placeholder/skeleton per mostrare subito la struttura delle card
+      Array.from({ length: 6 }).map((_, idx) => (
+        <Card key={idx} className={styles.cardCustom} isHoverable isPressable>
+          <CardHeader className="animate-pulse pb-0 pt-2 px-4 flex-col items-start">
+            <div className="w-3/4 h-4 bg-gray-300 rounded mb-2"></div>
+            <div className="w-1/2 h-3 bg-gray-300 rounded mb-2"></div>
+            <div className="w-1/2 h-3 bg-gray-300 rounded"></div>
+          </CardHeader>
+          <CardBody>
+            <div className="animate-pulse w-full h-48 bg-gray-200"></div>
+          </CardBody>
+          <CardFooter className="animate-pulse space-x-12 mb-5">
+            <div className="w-20 h-6 bg-gray-300 rounded"></div>
+          </CardFooter>
+        </Card>
+      ))
+    ) : nfts.length === 0 ? (
+      // Alert: nessun NFT trovato
+      <div className="col-span-1 md:col-span-3">
+        <div
+          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <strong className="font-bold">Alert! </strong>
+          <span className="block sm:inline">You do not yet own any NFT.</span>
         </div>
       </div>
+    ) : (
+      // Render delle card con i dati reali
+      nfts.map((nft) => (
+        <Card
+          className={styles.cardCustom}
+          key={nft.tokenId}
+          isHoverable
+          isPressable
+        >
+          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+            <p className="text-tiny uppercase font-bold">{nft.name}</p>
+            <small className="text-default-500">{nft.desc}</small>
+            <h4 className="font-bold text-large">Puzzle ID: {nft.tokenId}</h4>
+            <small className="text-default-500">
+              Owner: {formatUserString(nft.wallet)}
+            </small>
+            <small className="font-bold text-default-500">
+              Lots Created: {nft.lotCount.toString()}
+            </small>
+          </CardHeader>
+          <CardBody>
+            <Image src={nft.img} width="100%" alt={nft.name} />
+          </CardBody>
+          <CardFooter className="space-x-12 mb-5">
+            <Button
+              radius="full"
+              className={styles.buyLotsButton}
+              onClick={() => handleCreateLotClick(nft.tokenId)}
+            >
+              Create New Lot
+            </Button>
+          </CardFooter>
+        </Card>
+      ))
+    )}
+  </div>
+</div>
+
 
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
       <ModalContent className={styles.cardCustom} style={{ width: '20%' }}> 

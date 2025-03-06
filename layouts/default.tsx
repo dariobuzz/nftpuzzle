@@ -14,10 +14,11 @@ export default function DefaultLayout({
 			<main className="container mx-auto max-w-7xl px-6 flex-grow">
 				{children}
 			</main>
-			<footer className="w-full flex items-center justify-center py-3">
-			<p>Copyright © 2025 NFT Puzzle Art
-					
-				</p>
+			<footer className="w-full flex flex-col items-center justify-center py-3">
+				<p>Copyright © 2025 NFT Puzzle Art</p>
+				<Link href="/terms" color="primary" className="mt-2 text-sm">
+					Terms and Conditions
+				</Link>
 			</footer>
 		</div>
 	);

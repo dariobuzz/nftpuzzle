@@ -15,7 +15,7 @@ const TermsPage = () => {
     <DefaultLayout>
       <section className="container mx-auto px-4 py-8">
         {/* Selettore lingua */}
-        <LanguageSelector />
+   
 
         {/* Contenuto Termini */}
         <div className="text-center mb-8">
@@ -259,7 +259,7 @@ const TermsPage = () => {
 </section>
 
 
-  
+<LanguageSelector />
       </section>
     </DefaultLayout>
   );
