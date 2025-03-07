@@ -145,14 +145,14 @@ useEffect(() => {
         const chainId = await provider.send("eth_chainId", []);
        // const SEPOLIA_CHAIN_ID = "0xaa36a7"; // Chain ID della rete Sepolia
     
-       const ARBITRUM_CHAIN_ID = "0xa4b1"; // Chain ID della rete Arbitrum One
+       const POLYGON_CHAIN_ID = "0x89"; // Chain ID della rete Arbitrum One
        const SEPOLIA_CHAIN_ID = "0xaa36a7"; // Chain ID della rete Sepolia
   
-      if (chainId !== SEPOLIA_CHAIN_ID) {
+      if (chainId !== POLYGON_CHAIN_ID) {
           try {
             // Guida l'utente a cambiare rete
             await provider.send("wallet_switchEthereumChain", [
-              { chainId: SEPOLIA_CHAIN_ID },
+              { chainId: POLYGON_CHAIN_ID },
             ]);
             //alert("Switched to Sepolia network.");
           } catch (switchError) {

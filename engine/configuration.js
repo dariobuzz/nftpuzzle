@@ -37,9 +37,9 @@ var hhrpc = "http://localhost:8545";
 /*
 Global Parameters
 */
-export var puztoken = "0x94EeC388b2De874F9dbF48BeA18ef259909425b7";//SEPOLIA
-export var testnftcol = "0x3cc04AEa38d566d921906Aa634214545A21EB259";//SEPOLIA
-export var testnet = "https://gateway.tenderly.co/public/sepolia"
+export var puztoken = "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359";//SEPOLIA
+export var testnftcol = "0x3673fd00be903acad2ff00b4017886dfbc52962a";//SEPOLIA
+export var testnet = "https://1rpc.io/matic"
 
 /*export var puztoken = "0x61A7ac3aE4Cc3cbb02DB57Ddb224267A629169FD";//amoy
 export var testnftcol = "0xeAef63a7852Abe64aE92a7dc8Af0b001824fdd46";//amoy nuova testnet di polygon
