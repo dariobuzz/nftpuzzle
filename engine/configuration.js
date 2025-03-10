@@ -37,9 +37,9 @@ var hhrpc = "http://localhost:8545";
 /*
 Global Parameters
 */
-export var puztoken = "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359";//SEPOLIA
-export var testnftcol = "0x3673fd00be903acad2ff00b4017886dfbc52962a";//SEPOLIA
-export var testnet = "https://1rpc.io/matic"
+export var puztoken = "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359";//POLYGON
+export var testnftcol = "0x3673fd00be903acad2ff00b4017886dfbc52962a";//POLYGON
+export var testnet = "https://polygon-mainnet.g.alchemy.com/v2/m72BjREjm49KszoeRKfqFvM5VY1Ud7Jg"
 
 /*export var puztoken = "0x61A7ac3aE4Cc3cbb02DB57Ddb224267A629169FD";//amoy
 export var testnftcol = "0xeAef63a7852Abe64aE92a7dc8Af0b001824fdd46";//amoy nuova testnet di polygon
