@@ -159,11 +159,11 @@ useEffect(() => {
             console.error("Error switching network:", switchError);
             if ((switchError as any).code === 4902) {
               alert(
-                "Arbitrum  network is not available in MetaMask. Please add it manually."
+                "Polygon  network is not available in MetaMask. Please add it manually."
               );
             } else {
               alert(
-                "Failed to switch to the Arbitrum  network. Please switch it manually in MetaMask."
+                "Failed to switch to the Polygon  network. Please switch it manually in MetaMask."
               );
             }
             return;
