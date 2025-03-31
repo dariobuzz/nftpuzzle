@@ -575,7 +575,7 @@ const buyLot = async (puzzleId: number, lotId: number) => {
   <div className="flex justify-between items-center w-full">
     {/* Sezione Saldo PuzToken */}
     <div className={styles.custombox}>
-  Balance: {puzTokenBalance} Usdt
+  Balance: {puzTokenBalance} usdc
     </div>
     
     {/* Bottone Disconnect */}

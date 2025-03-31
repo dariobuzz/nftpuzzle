@@ -512,7 +512,7 @@ const IndexPage = () => {
     <div className="flex items-center space-x-2">
       <span style={{ fontWeight: 'bold', color: 'white' }}>Balance:</span>
       <span>{puzTokenBalance}</span>
-      <span style={{ color: 'white' }}>Usdt</span>
+      <span style={{ color: 'white' }}>usdc</span>
     </div>
     
     {/* Bottone Disconnect */}

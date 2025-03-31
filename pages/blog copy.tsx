@@ -28,8 +28,8 @@ Once assigned to a lot, a piece cannot be associated with another lot.
 3. Purchasing Lots
 • Purchase Method:
 
-Any user can purchase a lot, provided they have a sufficient balance in USDT Token (an ERC20 token).
-To purchase, the user sends the payment (in USDT Token) to the seller, identified as the current owner of the lot's pieces (the first piece owner of the lot is used as a reference).
+Any user can purchase a lot, provided they have a sufficient balance in USDC Token (an ERC20 token).
+To purchase, the user sends the payment (in USDC Token) to the seller, identified as the current owner of the lot's pieces (the first piece owner of the lot is used as a reference).
 • Ownership Update:
 After the purchase:
 
@@ -64,7 +64,7 @@ NFT puzzles are created, and all pieces belong to the creator.
 The creator can divide the puzzle into lots, assigning each lot a price, a "revelation" condition (revealed or hidden), and possibly a Joker.
 
 • Purchasing Lots:
-Users can purchase lots by paying with USDT Token. Each purchase transfers ownership of the included pieces and, if applicable, credits a Joker to the buyer. Additionally, the lot's price increases for the next buyer.
+Users can purchase lots by paying with usdc Token. Each purchase transfers ownership of the included pieces and, if applicable, credits a Joker to the buyer. Additionally, the lot's price increases for the next buyer.
 
 • Claiming the Complete Puzzle:
 When a user owns all pieces (directly or by using Jokers), they can "claim" the complete NFT puzzle, becoming its official owner and canceling all previous lot divisions.

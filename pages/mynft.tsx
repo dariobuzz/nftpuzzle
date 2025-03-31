@@ -227,7 +227,7 @@ async function getLotDetails(tokenId: number, lotId: number) {
 			</section>
     
   
-      <div className="mt-8 mb-5">
+      <div className="mt-8 mb-">
   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
     {loadingState !== 'loaded' ? (
       // Placeholder/skeleton per mostrare subito la struttura delle card

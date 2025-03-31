@@ -322,7 +322,7 @@ const IndexPage = () => {
       ) : (
         <div className="flex justify-between items-center w-full">
           <div className={styles.custombox}>
-            Balance: {puzTokenBalance} Usdt
+            Balance: {puzTokenBalance} usdc
           </div>
           <Button className={styles.cardCustom} onClick={disconnectUser} style={{ fontSize: '1em' }}>
             Disconnect: {formatUserString(user)}
