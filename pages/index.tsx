@@ -586,7 +586,7 @@ const buyLot = async (puzzleId: number, lotId: number) => {
 )}
 
 
-      <div className="mt-8">
+      <div className="mt-8 mb-5">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
   {loadingState !== 'loaded'
     ? Array.from({ length: 6 }).map((_, idx) => (
@@ -719,28 +719,42 @@ const buyLot = async (puzzleId: number, lotId: number) => {
   <div>Owner</div>
   <div></div>
 </div>
-{lotDetails.map((lot) => (
-  <div key={lot.id}  className="grid grid-cols-7 gap-4 mb-2 p-2 border-gray-200 text-center items-center">
-    <div>{lot.id}</div>
-    <div>{lot.price}</div>
-    <div>{lot.isRevealed ? lot.pieceIds.join(", ") : "Hidden"}</div>
-    <div>{lot.hasJolly ? "Yes" : "No"}</div>
-    <div>{formatUserString(lot.owner ?? "N/A")}</div>
-    <div className="flex justify-center items-center">
-      {(lot.owner ?? "").toLowerCase() === user.toLowerCase() ? (
-        "Already My lot"
-      ) : (
-        <Button  
-          className={styles.buyLotsButton}
-          style={{ transform: "scale(0.6)" }}
-          onClick={() => buyLot(Number(selectedTokenId), lot.id)}
-        >
-          Buy Lot n.{lot.id}
-        </Button>
-      )}
+{lotDetails.map((lot) => {
+  const isOwner = (lot.owner ?? "").toLowerCase() === user.toLowerCase();
+  return (
+    <div key={lot.id} className="grid grid-cols-7 gap-4 mb-2 p-2 border-gray-200 text-center items-center">
+      <div>{lot.id}</div>
+      <div>{lot.price}</div>
+      <div>
+        {lot.isRevealed 
+          ? lot.pieceIds.join(", ") 
+          : (isOwner ? `Hidden (${lot.pieceIds.join(", ")})` : "Hidden")
+        }
+      </div>
+      <div>
+        {lot.isRevealed 
+          ? (lot.hasJolly ? "Yes" : "No") 
+          : (isOwner ? `? (${lot.hasJolly ? "Yes" : "No"})` : "?")
+        }
+      </div>
+      <div>{formatUserString(lot.owner ?? "N/A")}</div>
+      <div className="flex justify-center items-center">
+        {isOwner ? (
+          "Already My lot"
+        ) : (
+          <Button  
+            className={styles.buyLotsButton}
+            style={{ transform: "scale(0.6)" }}
+            onClick={() => buyLot(Number(selectedTokenId), lot.id)}
+          >
+            Buy Lot n.{lot.id}
+          </Button>
+        )}
+      </div>
     </div>
-  </div>
-))}
+  )
+})}
+
 
               </ModalBody>
               <ModalFooter>

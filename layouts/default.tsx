@@ -14,22 +14,28 @@ export default function DefaultLayout({
 			<main className="container mx-auto max-w-7xl px-6 flex-grow">
 				{children}
 			</main>
-			<footer style={{ color: 'white' }} className="w-full flex flex-col items-center justify-center py-3">
-			<div className="flex space-x-4">
-			<img src="/CUL.jpg" alt="CUL" style={{ width: '100px', height: '50px' }} />
-			<p>   </p>
-<img src="/FIN.jpg" alt="FIN" style={{ width: '100px', height: '40px' }} />
+			<footer className="w-full mt-25">
+  {/* Banda bianca con l'immagine */}
+  <div className="w-full bg-white flex justify-center">
+    <img
+      src="/CUL.jpg"
+      alt="CUL"
+      style={{ height: '80px', margin: '10px 0' }}
+    />
+  </div>
 
-				</div>
-			
-				<p>Copyright 2025 @ Artshares srl</p>
-				<Link href="/terms" color="primary" className="mt-2 text-sm text-white">
-					Terms and Conditions
-				</Link>
-				<Link href="/co2" color="primary" className="mt-2 text-sm text-white">
-					Co2 Compensation
-				</Link>
-			</footer>
+  {/* Contenuto del footer */}
+  <div className="flex flex-col items-center justify-center py-3" style={{ color: 'white' }}>
+    <p>Copyright 2025 @ Artshares srl</p>
+    <Link href="/terms" color="primary" className="mt-2 text-sm text-white">
+      Terms and Conditions
+    </Link>
+    <Link href="/co2" color="primary" className="mt-2 text-sm text-white">
+      Co2 Compensation
+    </Link>
+  </div>
+</footer>
+
 		</div>
 	);
 }

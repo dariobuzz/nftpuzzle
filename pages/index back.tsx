@@ -136,7 +136,7 @@ const IndexPage = () => {
             console.error("Error switching network:", switchError);
             if ((switchError as any).code === 4902) {
               alert(
-                "Arbitrum  network is not available in MetaMask. Please add it manually."
+                "  network is not available in MetaMask. Please add it manually."
               );
             } else {
               alert(

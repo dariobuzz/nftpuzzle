@@ -74,9 +74,9 @@ export const Navbar = () => {
 				<NavbarBrand className="gap-3 max-w-fit">
 					<NextLink className="flex justify-start items-center gap-1" href="/">
 						<img
-							src="/LogoNFTpuzzlenew.png"
+							src="/LogoNFTpuzzleW.png"
 							alt="NFT Puzzle Logo"
-							className="h-10 w-auto"
+							className="h-20 w-auto"
 						/>
 					</NextLink>
 				</NavbarBrand>
