@@ -1,0 +1,10 @@
+{
+  "artist": "Artist",
+  "year": "Year",
+  "category": "Category",
+  "subject": "Subject",
+  "technique": "Technique",
+  "material": "Material",
+  "measurements": "Measurements",
+  "exhibitionLocation": "Exhibition Location"
+}

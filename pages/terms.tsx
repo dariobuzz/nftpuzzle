@@ -13,9 +13,12 @@ const TermsPage = () => {
 
   return (
     <DefaultLayout>
-      <section className="container mx-auto px-4 py-8">
-        {/* Selettore lingua */}
-   
+      {/* Rende il container "relative" per posizionare il selettore in alto a destra */}
+      <section className="relative container mx-auto px-4 py-8">
+        {/* Selettore lingua posizionato in alto a destra */}
+        <div className="absolute top-4 right-4">
+          <LanguageSelector />
+        </div>
 
         {/* Contenuto Termini */}
         <div className="text-center mb-8">
@@ -95,12 +98,6 @@ const TermsPage = () => {
             </div>
           </section>
         </article>
-
-
-
-
-
-<LanguageSelector />
       </section>
     </DefaultLayout>
   );

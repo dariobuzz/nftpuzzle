@@ -20,7 +20,7 @@ export default function DefaultLayout({
     <img
       src="/CUL.jpg"
       alt="CUL"
-      style={{ height: '80px', margin: '10px 0' }}
+      style={{ height: '40px', margin: '5px 0' }}
     />
   </div>
 
