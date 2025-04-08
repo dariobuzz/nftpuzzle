@@ -495,6 +495,7 @@ const IndexPage = () => {
                         style={{
                           aspectRatio: nft.width && nft.height ? `${nft.width} / ${nft.height}` : '1 / 1',
                         }}
+                        
                       >
                         {revealedPieces[nft.tokenId]?.map((isRevealed, pieceIndex) => (
                           <PuzzlePiece
@@ -512,7 +513,8 @@ const IndexPage = () => {
                         <img src="/revealimg.png" alt="Reveal Icon" />
                       </Button>
                     </CardFooter>
-                    <CardFooter className="space-x-12 mb-5 w-full flex justify-between items-center">
+                    
+                    <CardFooter className="mb-5 w-full flex flex-col items-center space-y-4">
                       <Button
                         className={styles.buyLotsButton}
                         color="primary"

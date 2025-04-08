@@ -16,7 +16,7 @@ export default function DefaultLayout({
 			</main>
 			<footer className="w-full mt-25">
   {/* Banda bianca con l'immagine */}
-  <div className="w-full bg-white flex justify-center">
+  <div className="w-full flex justify-center"  style={{ backgroundColor: '#F7F7F7' }}>
     <img
       src="/CUL.jpg"
       alt="CUL"
