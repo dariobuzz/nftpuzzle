@@ -430,7 +430,8 @@ const IndexPage = () => {
       {/* Wrapper "relative" per posizionare il LanguageSelector in alto a destra */}
       <div className="relative">
         <div className="absolute top-4 right-4 z-50">
-          <LanguageSelector />
+        <LanguageSelector size={20} gap={0.5} />
+
         </div>
 
         <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">

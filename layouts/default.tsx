@@ -33,6 +33,17 @@ export default function DefaultLayout({
     <Link href="/co2" color="primary" className="mt-2 text-sm text-white">
       Co2 Compensation
     </Link>
+    <a
+  href="https://www.iubenda.com/privacy-policy/16252479"
+  className="iubenda-white iubenda-noiframe iubenda-embed"
+  title="Privacy Policy"
+>Privacy Policy</a>
+<a
+  href="https://www.iubenda.com/privacy-policy/16252479/cookie-policy"
+  className="iubenda-white iubenda-noiframe iubenda-embed"
+  title="Cookie Policy"
+>Cookie Policy</a>
+
   </div>
 </footer>
 
