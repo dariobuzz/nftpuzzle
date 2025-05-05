@@ -26,77 +26,18 @@ const TermsPage = () => {
           <h2 className={`${subtitle()} font-bold`}>{t('pageSubtitle')}</h2>
         </div>
         <article className="prose lg:prose-xl bg-white text-black p-4 text-center">
-          <section className="mb-8">
-            <h2 className="font-bold">{t('section1Title')}</h2>
-            <div className="mb-4"></div>
-            <div className="text-center">
-              <ReactMarkdown>{t('section1Content')}</ReactMarkdown>
-            </div>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="font-bold">{t('section2Title')}</h2>
-            <div className="mb-4"></div>
-            <div className="text-center">
-              <ReactMarkdown>{t('section2Content')}</ReactMarkdown>
-            </div>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="font-bold">{t('section3Title')}</h2>
-            <div className="mb-4"></div>
-            <div className="text-center">
-              <ReactMarkdown>{t('section3Content')}</ReactMarkdown>
-            </div>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="font-bold">{t('section4Title')}</h2>
-            <div className="mb-4"></div>
-            <div className="text-center">
-              <ReactMarkdown>{t('section4Content')}</ReactMarkdown>
-            </div>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="font-bold">{t('section5Title')}</h2>
-            <div className="mb-4"></div>
-            <div className="text-center">
-              <ReactMarkdown>{t('section5Content')}</ReactMarkdown>
-            </div>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="font-bold">{t('section6Title')}</h2>
-            <div className="mb-4"></div>
-            <div className="text-center">
-              <ReactMarkdown>{t('section6Content')}</ReactMarkdown>
-            </div>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="font-bold">{t('section7Title')}</h2>
-            <div className="mb-4"></div>
-            <div className="text-center">
-              <ReactMarkdown>{t('section7Content')}</ReactMarkdown>
-            </div>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="font-bold">{t('section8Title')}</h2>
-            <div className="mb-4"></div>
-            <div className="text-center">
-              <ReactMarkdown>{t('section8Content')}</ReactMarkdown>
-            </div>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="font-bold">{t('section9Title')}</h2>
-            <div className="mb-4"></div>
-            <div className="text-center">
-              <ReactMarkdown>{t('section9Content')}</ReactMarkdown>
-            </div>
-          </section>
+          {[...Array(18)].map((_, idx) => {
+            const section = idx + 1;
+            return (
+              <section key={section} className="mb-8">
+                <h2 className="font-bold">{t(`section${section}Title`)}</h2>
+                <div className="mb-4"></div>
+                <div className="text-center">
+                  <ReactMarkdown>{t(`section${section}Content`)}</ReactMarkdown>
+                </div>
+              </section>
+            );
+          })}
         </article>
       </section>
     </DefaultLayout>
