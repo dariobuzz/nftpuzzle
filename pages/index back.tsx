@@ -99,7 +99,7 @@ const IndexPage = () => {
       const signer = provider.getSigner();
       const puzTokenContract = new ethers.Contract(puztoken, ERC20ABI, signer);
       const balance: BigNumber = await puzTokenContract.balanceOf(userAddress);
-      const formattedBalance = ethers.utils.formatUnits(balance, 18); // Assumendo 18 decimali
+      const formattedBalance = ethers.utils.formatUnits(balance, 6); // USDC ha 6 decimali
       setPuzTokenBalance(formattedBalance);
     } catch (error) {
       console.error("Error fetching PuzToken balance:", error);
@@ -195,7 +195,7 @@ const IndexPage = () => {
       
       id: lot.id.toNumber(),
       pieceIds: lot.pieceIds.map((pieceId: any) => pieceId.toNumber()),
-      price: parseFloat(ethers.utils.formatUnits(lot.price, 'ether')), 
+      price: parseFloat(ethers.utils.formatUnits(lot.price, 6)), 
       isRevealed: lot.isRevealed,
       hasJolly: lot.hasJolly,
       isSold: lot.isSold,
@@ -331,14 +331,14 @@ const IndexPage = () => {
       const contract = new ethers.Contract(testnftcol, NFTCollectionABI, signer);
 
       const lotprice = await  contract.getLotPriceByTokenIdAndLotId(puzzleId,lotId);
-      console.log("lotPrice: ", ethers.utils.formatUnits(lotprice, 'ether'));
+      console.log("lotPrice: ", ethers.utils.formatUnits(lotprice, 6));
 
       // Check the allowance
       const allowance = await erc20Contract.allowance(user, testnftcol);
-      console.log("allowance:----->", ethers.utils.formatUnits(allowance, 'ether'));
+      console.log("allowance:----->", ethers.utils.formatUnits(allowance, 6));
   
       if (allowance.lt(lotprice)) {
-        console.log("lotPrice:----->", ethers.utils.formatUnits(lotprice, 'ether'));
+        console.log("lotPrice:----->", ethers.utils.formatUnits(lotprice, 6));
         // Approve the NFT contract to spend tokens
         const approveTx = await erc20Contract.approve(testnftcol, lotprice);
         await approveTx.wait();

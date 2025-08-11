@@ -122,7 +122,7 @@ useEffect(() => {
       const signer = provider.getSigner();
       const puzTokenContract = new ethers.Contract(puztoken, ERC20ABI, signer);
       const balance: BigNumber = await puzTokenContract.balanceOf(userAddress);
-      const formattedBalance = ethers.utils.formatUnits(balance, 18); // Assumendo 18 decimali
+      const formattedBalance = ethers.utils.formatUnits(balance, 6); // USDC ha 6 decimali
       setPuzTokenBalance(formattedBalance);
     } catch (error) {
       console.error("Error fetching PuzToken balance:", error);
@@ -218,7 +218,7 @@ useEffect(() => {
       
       id: lot.id.toNumber(),
       pieceIds: lot.pieceIds.map((pieceId: any) => pieceId.toNumber()),
-      price: parseFloat(ethers.utils.formatUnits(lot.price, 'ether')), 
+      price: parseFloat(ethers.utils.formatUnits(lot.price, 6)), 
       isRevealed: lot.isRevealed,
       hasJolly: lot.hasJolly,
       isSold: lot.isSold,
@@ -391,8 +391,8 @@ const buyLot = async (puzzleId: number, lotId: number) => {
       throw new Error("Dettagli del lotto non trovati per lotId: " + lotId);
     }
     // Converte il prezzo (che è stato salvato come numero) in un BigNumber
-    const lotprice = ethers.utils.parseEther(selectedLot.price.toString());
-    console.log("lotPrice: ", ethers.utils.formatUnits(lotprice, 'ether'));
+    const lotprice = ethers.utils.parseUnits(selectedLot.price.toString(), 6);
+    console.log("lotPrice: ", ethers.utils.formatUnits(lotprice, 6));
 
     const provider = new ethers.providers.Web3Provider(window.ethereum as any);
     const signer = provider.getSigner();
@@ -401,16 +401,16 @@ const buyLot = async (puzzleId: number, lotId: number) => {
 
     // Verifica l'allowance
     const allowance = await erc20Contract.allowance(user, testnftcol);
-    console.log("allowance:----->", ethers.utils.formatUnits(allowance, 'ether'));
+    console.log("allowance:----->", ethers.utils.formatUnits(allowance, 6));
 
     if (allowance.lt(lotprice)) {
-      console.log("lotPrice:----->", ethers.utils.formatUnits(lotprice, 'ether'));
+      console.log("lotPrice:----->", ethers.utils.formatUnits(lotprice, 6));
       // Approva il contratto NFT a spendere i token
       const approveTx = await erc20Contract.approve(testnftcol, lotprice);
       await approveTx.wait();
       console.log("APPROVE1");
     }
-    console.log("APPROVE2", ethers.utils.formatUnits(allowance, 'ether'));
+    console.log("APPROVE2", ethers.utils.formatUnits(allowance, 6));
 
     // Esegui l'acquisto del lotto
     const transaction = await contract.buyLot(puzzleId, lotId);

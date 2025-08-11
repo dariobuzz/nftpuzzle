@@ -116,7 +116,7 @@ const IndexPage = () => {
       const signer = provider.getSigner();
       const puzTokenContract = new ethers.Contract(puztoken, ERC20ABI, signer);
       const balance: BigNumber = await puzTokenContract.balanceOf(userAddress);
-      const formattedBalance = ethers.utils.formatUnits(balance, 18);
+      const formattedBalance = ethers.utils.formatUnits(balance, 6);
       setPuzTokenBalance(formattedBalance);
     } catch (error) {
       console.error('Error fetching PuzToken balance:', error);
@@ -181,7 +181,7 @@ const IndexPage = () => {
     const formattedLots: LotDetail[] = lotDetails.map((lot: any) => ({
       id: lot.id.toNumber(),
       pieceIds: lot.pieceIds.map((pieceId: any) => pieceId.toNumber()),
-      price: parseFloat(ethers.utils.formatUnits(lot.price, 'ether')),
+      price: parseFloat(ethers.utils.formatUnits(lot.price, 6)),
       isRevealed: lot.isRevealed,
       hasJolly: lot.hasJolly,
       isSold: lot.isSold,
@@ -303,7 +303,7 @@ const IndexPage = () => {
       if (!selectedLot) {
         throw new Error('Dettagli del lotto non trovati per lotId: ' + lotId);
       }
-      const lotprice = ethers.utils.parseEther(selectedLot.price.toString());
+      const lotprice = ethers.utils.parseUnits(selectedLot.price.toString(), 6);
       const provider = new ethers.providers.Web3Provider(window.ethereum as any);
       const signer = provider.getSigner();
       const erc20Contract = new ethers.Contract(puztoken, ERC20ABI, signer);
