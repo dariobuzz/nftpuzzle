@@ -198,7 +198,7 @@ async function getLotDetails(tokenId: number, lotId: number) {
       selectedTokenId,
       lotNumber,
       petIds.split(',').map(Number),
-      ethers.utils.parseUnits(price, 'ether'),
+      ethers.utils.parseUnits(price, 6),
       isRevealed,
       jollyFlag
     );
