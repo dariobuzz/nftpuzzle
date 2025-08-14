@@ -40,7 +40,9 @@ Global Parameters
 export var puztoken = "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359";//POLYGON
 // old export var testnftcol = "0x3673fd00be903acad2ff00b4017886dfbc52962a";//POLYGON
 
-export var testnftcol = "0xFc76d749dF541c419d1e476F2B3d42a679219682";//POLYGON
+export var testnftcol = "0x1Ce58f11abC958E5e0638BCC0Db49568B5f5917C";//POLYGON
+//export var testnftcol = "0xFc76d749dF541c419d1e476F2B3d42a679219682";//POLYGON
+
 
 
 export var testnet = "https://polygon-mainnet.g.alchemy.com/v2/m72BjREjm49KszoeRKfqFvM5VY1Ud7Jg"
