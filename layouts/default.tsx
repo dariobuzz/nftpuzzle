@@ -16,17 +16,22 @@ export default function DefaultLayout({
 			</main>
 			<footer className="w-full mt-25">
   {/* Banda bianca con l'immagine */}
-  <div className="w-full flex justify-center gap-4"  style={{ backgroundColor: '#F7F7F7' }}>
-    <img
-      src="/CUL.jpg"
-      alt="CUL"
-      style={{ height: '40px', margin: '5px 0' }}
-    />
-    <img
-      src="/TOCC.png"
-      alt="TOCC"
-      style={{ height: '40px', margin: '5px 0' }}
-    />
+  <div className="w-full flex flex-col items-center justify-center py-3"  style={{ backgroundColor: '#F7F7F7' }}>
+    <div className="flex justify-center gap-4">
+      <img
+        src="/CUL.jpg"
+        alt="CUL"
+        style={{ height: '40px', margin: '5px 0' }}
+      />
+      <img
+        src="/TOCC.png"
+        alt="TOCC"
+        style={{ height: '40px', margin: '5px 0' }}
+      />
+    </div>
+    <p style={{ marginTop: '10px', fontSize: '12px', color: '#333' }}>
+      Progetto finanziato dall'Unione europea – Next Generation EU
+    </p>
   </div>
 
   {/* Contenuto del footer */}
