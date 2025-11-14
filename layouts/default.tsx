@@ -16,10 +16,15 @@ export default function DefaultLayout({
 			</main>
 			<footer className="w-full mt-25">
   {/* Banda bianca con l'immagine */}
-  <div className="w-full flex justify-center"  style={{ backgroundColor: '#F7F7F7' }}>
+  <div className="w-full flex justify-center gap-4"  style={{ backgroundColor: '#F7F7F7' }}>
     <img
       src="/CUL.jpg"
       alt="CUL"
+      style={{ height: '40px', margin: '5px 0' }}
+    />
+    <img
+      src="/TOCC.png"
+      alt="TOCC"
       style={{ height: '40px', margin: '5px 0' }}
     />
   </div>
